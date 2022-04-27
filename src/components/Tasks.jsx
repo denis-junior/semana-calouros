@@ -1,20 +1,22 @@
-import React from 'react';
-import Task from './Task';
+import React from "react";
+import Task from "./Task";
 
-const Tasks = ({tasks}) => {
-    
-    console.log(tasks)
-    return ( 
-        <>
-        {
-            tasks.map((task)=>{
-                return <Task task={task}/>
-            })
-        }
-        
-        
-        </>
-     );
-}
- 
+const Tasks = ({ tasks, handleTaskClick, handleTaskDeletion }) => {
+  console.log(tasks);
+  return (
+    <>
+      {tasks.map((task) => {
+        return (
+          <Task
+            key={task.id}
+            task={task}
+            handleTaskClick={handleTaskClick}
+            handleTaskDeletion={handleTaskDeletion}
+          />
+        );
+      })}
+    </>
+  );
+};
+
 export default Tasks;
