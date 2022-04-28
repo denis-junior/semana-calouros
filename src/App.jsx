@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Tasks from "./components/Tasks";
 import TaskDetails from "./components/TaskDetails";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
+import ErrorPage from "./components/ErrorPage";
 
 import "./App.css";
 import axios from "axios";
@@ -14,18 +15,17 @@ const App = () => {
   // const message = "My variable"
   const [tasks, setTasks] = useState([]);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     const fetchTasks = async () => {
-      const {data} = await axios.get('https://jsonplaceholder.cypress.io/todos?_limit=10')
+      const { data } = await axios.get(
+        "https://jsonplaceholder.cypress.io/todos?_limit=10"
+      );
 
-      setTasks(data)
-    }
+      setTasks(data);
+    };
 
-    fetchTasks()
-
-  }, [])
-
+    fetchTasks();
+  }, []);
 
   const handleTaskClick = (taskId) => {
     const newTasks = tasks.map((task) => {
@@ -56,23 +56,26 @@ const App = () => {
   };
 
   return (
-    <Router>
+    <BrowserRouter>
       <div className="container">
         <Header />
-        <Route
-          path="/"
-          exact
-          render={() => (
-            <>
-              <AddTask handleTaskAddition={handleTaskAddition} />
-              <Tasks tasks={tasks} handleTaskClick={handleTaskClick} handleTaskDeletion={handleTaskDeletion}/>
-            </>
-          )}
-        />
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <>
+                <AddTask handleTaskAddition={handleTaskAddition} />r
+                <Tasks tasks={tasks} handleTaskClick={handleTaskClick} handleTaskDeletion={handleTaskDeletion} />
+              </>
+            }
+          />
 
-        <Route path="/:taskTitle" exact component={TaskDetails} />
+          <Route path="/:taskTitle" exact element={<TaskDetails/>} />
+          <Route path="*" element={<sErrorPage/>} />
+        </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 };
 
