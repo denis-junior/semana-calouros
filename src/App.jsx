@@ -65,7 +65,7 @@ const App = () => {
             exact
             element={
               <>
-                <AddTask handleTaskAddition={handleTaskAddition} />r
+                <AddTask handleTaskAddition={handleTaskAddition} />
                 <Tasks tasks={tasks} handleTaskClick={handleTaskClick} handleTaskDeletion={handleTaskDeletion} />
               </>
             }
